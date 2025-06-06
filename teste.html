@@ -1,1 +1,136 @@
 
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Animação da Logo</title>
+  <style>
+    body {
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .logo-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+    }
+
+    /* Base do marcador vermelho */
+    .pin {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: red;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      clip-path: polygon(50% 0%, 100% 40%, 80% 100%, 20% 100%, 0% 40%);
+      z-index: 0;
+    }
+
+    /* Alvo circular */
+    .center-circle {
+      position: absolute;
+      top: 40%;
+      left: 40%;
+      width: 40px;
+      height: 40px;
+      background: white;
+      border-radius: 50%;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .ring {
+      position: absolute;
+      border: 3px solid #00bcd4;
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .ring1 {
+      width: 60px;
+      height: 60px;
+      top: 35%;
+      left: 35%;
+      z-index: 1;
+    }
+
+    .ring2 {
+      width: 80px;
+      height: 80px;
+      top: 30%;
+      left: 30%;
+      z-index: 1;
+    }
+
+    .ring3 {
+      width: 100px;
+      height: 100px;
+      top: 25%;
+      left: 25%;
+      z-index: 1;
+    }
+
+    /* Seta */
+    .arrow {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+      border-bottom: 50px solid #00bcd4;
+      top: 60px;
+      left: 60px;
+      transform: rotate(45deg);
+      animation: moverSeta 2.5s infinite alternate ease-in-out;
+      z-index: 3;
+    }
+
+    @keyframes moverSeta {
+      0% {
+        transform: rotate(45deg) translate(-20px, -20px);
+      }
+      100% {
+        transform: rotate(45deg) translate(20px, 20px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="logo-container">
+  <div class="pin"></div>
+  <div class="ring ring3"></div>
+  <div class="ring ring2"></div>
+  <div class="ring ring1"></div>
+  <div class="center-circle"></div>
+  <div class="arrow"></div>
+</div>
+
+<script>
+  const rings = document.querySelectorAll('.ring');
+  let aproximando = true;
+
+  setInterval(() => {
+    aproximando = !aproximando;
+    if (aproximando) {
+      // Mostrar anéis um por um
+      rings.forEach((ring, i) => {
+        setTimeout(() => ring.style.opacity = 1, i * 200);
+      });
+    } else {
+      // Esconder todos de uma vez
+      rings.forEach(ring => ring.style.opacity = 0);
+    }
+  }, 2500); // Tempo da animação da seta
+</script>
+
+</body>
+</html>
